@@ -3,5 +3,6 @@ package main
 import "snippetbox.manvendrask.com/internal/models"
 
 type TemplateData struct {
-	Snippet models.Snippet
+	Snippet  models.Snippet
+	Snippets []models.Snippet
 }
