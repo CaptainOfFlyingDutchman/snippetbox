@@ -30,3 +30,10 @@ The database setup guide also includes configuration instructions for:
 - DataGrip
 - WebStorm
 - Other MySQL-compatible clients
+
+## Generating TLS certificate
+
+```bash
+mkdir tls
+go run <GO_Install_Path>/<GO_Version>/libexec/src/crypto/tls/generate_cert.go --rsa-bits=2048 --host=localhost
+```
