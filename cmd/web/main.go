@@ -16,7 +16,7 @@ import (
 	"snippetbox.manvendrask.com/internal/models"
 )
 
-type application struct {
+type Application struct {
 	logger         *slog.Logger
 	snippets       *models.SnippetModel
 	templateCache  map[string]*template.Template
@@ -55,7 +55,7 @@ func main() {
 	sessionManager.Store = mysqlstore.New(db)
 	sessionManager.Lifetime = 12 * time.Hour
 
-	app := &application{
+	app := &Application{
 		logger:         logger,
 		snippets:       &models.SnippetModel{DB: db},
 		templateCache:  templateCache,

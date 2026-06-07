@@ -10,7 +10,7 @@ import (
 	"snippetbox.manvendrask.com/internal/validator"
 )
 
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
+func (app *Application) home(w http.ResponseWriter, r *http.Request) {
 	snippets, err := app.snippets.Latest()
 	if err != nil {
 		app.serverError(w, r, err)
@@ -23,7 +23,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, http.StatusOK, "home.tmpl.html", data)
 }
 
-func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
+func (app *Application) snippetView(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(r.PathValue("id"))
 	if err != nil || id < 1 {
 		http.NotFound(w, r)
@@ -46,7 +46,7 @@ func (app *application) snippetView(w http.ResponseWriter, r *http.Request) {
 	app.render(w, r, http.StatusOK, "view.tmpl.html", data)
 }
 
-func (app *application) snippetCreate(w http.ResponseWriter, r *http.Request) {
+func (app *Application) snippetCreate(w http.ResponseWriter, r *http.Request) {
 	data := app.newTemplateData(r)
 	data.Form = SnippetCreateForm{
 		Expires: 365,
@@ -62,7 +62,7 @@ type SnippetCreateForm struct {
 	validator.Validator `form:"-"`
 }
 
-func (app *application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
+func (app *Application) snippetCreatePost(w http.ResponseWriter, r *http.Request) {
 	var form SnippetCreateForm
 
 	err := app.decodePostForm(r, &form)

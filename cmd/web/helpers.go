@@ -11,7 +11,7 @@ import (
 	"github.com/go-playground/form/v4"
 )
 
-func (app *application) serverError(w http.ResponseWriter, r *http.Request, err error) {
+func (app *Application) serverError(w http.ResponseWriter, r *http.Request, err error) {
 	var (
 		method = r.Method
 		uri    = r.URL.RequestURI()
@@ -27,11 +27,11 @@ func (app *application) serverError(w http.ResponseWriter, r *http.Request, err 
 	http.Error(w, http.StatusText(http.StatusInternalServerError), http.StatusInternalServerError)
 }
 
-func (app *application) clientError(w http.ResponseWriter, status int) {
+func (app *Application) clientError(w http.ResponseWriter, status int) {
 	http.Error(w, http.StatusText(status), status)
 }
 
-func (app *application) render(w http.ResponseWriter, r *http.Request, status int, page string, data TemplateData) {
+func (app *Application) render(w http.ResponseWriter, r *http.Request, status int, page string, data TemplateData) {
 	ts, ok := app.templateCache[page]
 	if !ok {
 		err := fmt.Errorf("the template %s does not exist", page)
@@ -51,14 +51,14 @@ func (app *application) render(w http.ResponseWriter, r *http.Request, status in
 	buf.WriteTo(w)
 }
 
-func (app *application) newTemplateData(r *http.Request) TemplateData {
+func (app *Application) newTemplateData(r *http.Request) TemplateData {
 	return TemplateData{
 		CurrentYear: time.Now().Year(),
 		Flash:       app.sessionManager.PopString(r.Context(), "flash"),
 	}
 }
 
-func (app *application) decodePostForm(r *http.Request, dest any) error {
+func (app *Application) decodePostForm(r *http.Request, dest any) error {
 	err := r.ParseForm()
 	if err != nil {
 		return err

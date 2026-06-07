@@ -6,7 +6,7 @@ import (
 	"github.com/justinas/alice"
 )
 
-func (app *application) routes() http.Handler {
+func (app *Application) routes() http.Handler {
 	mux := http.NewServeMux()
 
 	fileServer := http.FileServer(http.Dir("./ui/static/"))
