@@ -93,3 +93,23 @@ func (app *Application) snippetCreatePost(w http.ResponseWriter, r *http.Request
 
 	http.Redirect(w, r, fmt.Sprintf("/snippet/view/%d", id), http.StatusSeeOther)
 }
+
+func (app *Application) userSignup(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (app *Application) userSignupPost(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (app *Application) userLogin(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (app *Application) userLoginPost(w http.ResponseWriter, r *http.Request) {
+
+}
+
+func (app *Application) userLogoutPost(w http.ResponseWriter, r *http.Request) {
+
+}
