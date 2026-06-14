@@ -149,12 +149,12 @@ INSERT INTO snippets (title, content, created, expires) VALUES (
 ### Local MySQL Installation
 
 ```sql
-CREATE USER IF NOT EXISTS 'web'@'localhost'
+CREATE USER IF NOT EXISTS 'web'@'%'
 IDENTIFIED BY 'pass';
 
 GRANT SELECT, INSERT, UPDATE, DELETE
 ON snippetbox.*
-TO 'web'@'localhost';
+TO 'web'@'%';
 
 FLUSH PRIVILEGES;
 ```
@@ -224,3 +224,27 @@ Expected output:
 | User     | web        |
 | Password | pass       |
 | Database | snippetbox |
+
+---
+
+## Test Database Setup
+
+Integration tests in `internal/models` use a separate test database and user. Each test run creates and drops tables via `testdata/setup.sql` and `testdata/teardown.sql`, so the test user needs extra DDL privileges.
+
+### Create the Test Database and User
+
+Connect as root, then run:
+
+```sql
+CREATE DATABASE IF NOT EXISTS test_snippetbox
+    CHARACTER SET utf8mb4
+    COLLATE utf8mb4_unicode_ci;
+
+CREATE USER IF NOT EXISTS 'test_web'@'%' IDENTIFIED BY 'pass';
+
+GRANT CREATE, DROP, ALTER, INDEX, SELECT, INSERT, UPDATE, DELETE
+ON test_snippetbox.*
+TO 'test_web'@'%';
+
+FLUSH PRIVILEGES;
+```
