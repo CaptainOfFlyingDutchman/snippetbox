@@ -7,6 +7,10 @@ import (
 )
 
 func TestUserModelExists(t *testing.T) {
+	if testing.Short() {
+		t.Skip("models: skipping integration test")
+	}
+
 	type TestCase struct {
 		name   string
 		userID int
